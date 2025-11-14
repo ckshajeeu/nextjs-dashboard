@@ -4,6 +4,8 @@ import Search from "@/app/ui/search";
 import { InvoicesTableSkeleton } from "@/app/ui/skeletons";
 import { Suspense } from "react";
 import Table from "@/app/ui/invoices/table"
+import { fetchInvoicesPages } from "@/app/lib/data";
+import Pagination from "@/app/ui/invoices/pagination";
 
 export default async function Page(props: {
   searchParams?: Promise<{
@@ -14,7 +16,8 @@ export default async function Page(props: {
 
   const searchParams = await props.searchParams;
   const query = searchParams?.query || '';
-  const currentPage = Number(searchParams?.page || 1)
+  const currentPage = Number(searchParams?.page || 1);
+  const totalPages = await fetchInvoicesPages(query);
 
   return (
     <div className="w-full">
@@ -30,6 +33,9 @@ export default async function Page(props: {
         <Suspense key={query + currentPage} fallback={<InvoicesTableSkeleton />}>
           <Table query={query} currentPage={currentPage} />
         </Suspense>
+      </div>
+      <div className="mt-5 flex w-full justify-center">
+        <Pagination totalPages={totalPages} />
       </div>
     </div>
   );
