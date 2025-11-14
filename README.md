@@ -10,7 +10,7 @@ Password: 123456
 
 For more information, see the [course curriculum](https://nextjs.org/learn) on the Next.js Website.
 
-## React Foundations
+## React App Router
 
 * Chapter 1: Getting Started
 * Chapter 2: CSS Styling
